@@ -16,6 +16,7 @@ export default function List() {
 	const { data } = useSuspenseQuery<User[]>({
 		queryKey: ["users"],
 		queryFn: () => getUsers(),
+		staleTime: 1000 * 60 * 60,
 	})
 
 	return (

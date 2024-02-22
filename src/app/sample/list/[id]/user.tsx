@@ -10,10 +10,11 @@ const getUser = async (id: string) => {
 	return result
 }
 
-export default async function user({ id }: Props) {
-	const { data } = useSuspenseQuery<User, Error, User, [string, { id: string }]>({
-		queryKey: ["user", { id }],
-		queryFn: ({ queryKey }) => getUser(queryKey[1].id),
+export default function user({ id }: Props) {
+	const { data } = useSuspenseQuery<User, Error, User, [string, string]>({
+		queryKey: ["user", id],
+		queryFn: ({ queryKey }) => getUser(queryKey[1]),
+		staleTime: 1000 * 60 * 60,
 	})
 
 	return (
